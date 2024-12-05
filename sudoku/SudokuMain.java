@@ -1,65 +1,69 @@
 package sudoku;
+
 import java.awt.*;
 import javax.swing.*;
 
-/**
- * The main Sudoku program
- */
 public class SudokuMain extends JFrame {
-    private static final long serialVersionUID = 1L;  // to prevent serial warning
+    private static final long serialVersionUID = 1L;
 
-    // Private variables
-    GameBoardPanel board = new GameBoardPanel();
-    JButton btnNewGame = new JButton("New Game");
+    private CardLayout cardLayout;
+    private JPanel mainPanel;
 
-    // Constructor
     public SudokuMain() {
-        Container cp = getContentPane();
-        cp.setLayout(new BorderLayout());
+        cardLayout = new CardLayout();
+        mainPanel = new JPanel(cardLayout);
 
-        cp.add(board, BorderLayout.CENTER); // Tambahkan board ke JPanel
-        cp.add(btnNewGame, BorderLayout.SOUTH); // Tambahkan tombol ke bawah
+        HomePage homePage = new HomePage(e -> switchToGame());
+        GamePage gamePage = new GamePage(e -> switchToHome());
 
-        // Action listener untuk tombol New Game
-        btnNewGame.addActionListener(e -> board.newGame());
+        mainPanel.add(homePage, "Home");
+        mainPanel.add(gamePage, "Game");
 
-        // Buat menu bar
+        getContentPane().add(mainPanel);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("Sudoku");
+        setSize(600, 600);
+        setLocationRelativeTo(null);
+
+        // Create menu bar here
+        createMenuBar();
+
+        setVisible(true);
+        cardLayout.show(mainPanel, "Home");
+    }
+
+    private void createMenuBar() {
+        // Create menu bar and add it to JFrame
         JMenuBar menuBar = new JMenuBar();
         JMenu fileMenu = new JMenu("Option");
+
         JMenuItem resetGameItem = new JMenuItem("Reset Game");
         JMenuItem exitItem = new JMenuItem("Exit");
 
-        // Tambahkan listener ke menu item
-        resetGameItem.addActionListener(e -> board.newGame());
+        resetGameItem.addActionListener(e -> {
+            // Reset game logic
+            GamePage gamePage = (GamePage) mainPanel.getComponent(1);
+            gamePage.board.newGame();
+        });
+
         exitItem.addActionListener(e -> System.exit(0));
 
-        // Tambahkan menu item ke fileMenu
         fileMenu.add(resetGameItem);
         fileMenu.add(exitItem);
-
-        // Tambahkan fileMenu ke menuBar
         menuBar.add(fileMenu);
 
-        // Pasang menuBar ke JFrame
         setJMenuBar(menuBar);
-
-        // Atur window
-        pack();  // Atur ukuran berdasarkan komponen
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setTitle("Sudoku");
-        setVisible(true);
-
-        // Mulai game baru
-        board.newGame();
     }
 
-    /** Entry point */
+    private void switchToGame() {
+        cardLayout.show(mainPanel, "Game");
+    }
+
+    private void switchToHome() {
+        cardLayout.show(mainPanel, "Home");
+    }
+
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
-            @Override
-            public void run() {
-                new SudokuMain(); // Create an instance of SudokuMain to display the GUI
-            }
-        });
+        SwingUtilities.invokeLater(SudokuMain::new);
     }
 }

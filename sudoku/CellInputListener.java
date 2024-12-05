@@ -2,7 +2,7 @@ package sudoku;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-// [TODO 2] Define a Listener Inner Class for all the editable Cells
+// TODO 2 Define a Listener Inner Class for all the editable Cells
 class CellInputListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {

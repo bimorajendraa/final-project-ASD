@@ -31,10 +31,10 @@ public class GameBoardPanel extends JPanel {
             }
         }
 
-        // [TODO 3]
+        // TODO 3
         CellInputListener listener = new CellInputListener();
 
-        // [TODO 4]
+        // TODO 4
         for (int row = 0; row < SudokuConstants.GRID_SIZE; ++row) {
             for (int col = 0; col < SudokuConstants.GRID_SIZE; ++col) {
                 if (cells[row][col].isEditable()) {
@@ -77,7 +77,7 @@ public class GameBoardPanel extends JPanel {
         return true;
     }
 
-    // [TODO 2] Define a Listener Inner Class for all the editable Cells
+    // TODO 2 Define a Listener Inner Class for all the editable Cells
     private class CellInputListener implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -90,7 +90,7 @@ public class GameBoardPanel extends JPanel {
                 System.out.println("You entered " + numberIn);
 
                 /*
-                 * [TODO 5] (later - after TODO 3 and 4)
+                 * TODO 5 later - after TODO 3 and 4
                  * Check the numberIn against sourceCell.number.
                  * Update the cell status sourceCell.status,
                  * and re-paint the cell via sourceCell.paint().
@@ -103,7 +103,7 @@ public class GameBoardPanel extends JPanel {
                 sourceCell.paint();
 
                 /*
-                 * [TODO 6]
+                 * TODO 6
                  * Check if the player has solved the puzzle after this move,
                  *   by calling isSolved(). Put up a congratulation JOptionPane, if so.
                  */

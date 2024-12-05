@@ -19,19 +19,14 @@ public class SudokuMain extends JFrame {
         cp.add(board, BorderLayout.CENTER);
 
         // Add a button to the south to re-start the game via board.newGame()
-        btnNewGame.addActionListener(e -> board.newGame());
-        cp.add(btnNewGame, BorderLayout.NORTH);
-
-        // Initialize the game board
-        board.newGame();
-
+        // ......
 
         // Initialize the game board to start the game
         board.newGame();
 
         pack();     // Pack the UI components, instead of using setSize()
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);  // to handle window-closing
-        setTitle("Sudoku");
+        setTitle("sudoku");
         setVisible(true);
     }
 
@@ -40,8 +35,6 @@ public class SudokuMain extends JFrame {
         // [TODO 1] Check "Swing program template" on how to run
         //  the constructor of "SudokuMain"
 
-        SudokuMain game = new SudokuMain();
-        new SudokuMain();
         SwingUtilities.invokeLater(new Runnable() {
             @Override
             public void run() {

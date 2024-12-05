@@ -22,7 +22,7 @@ public class SudokuMain extends JFrame {
         getContentPane().add(mainPanel);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setTitle("Sudoku");
-        setSize(600, 600);
+        pack();
         setLocationRelativeTo(null);
 
         // Create menu bar here

@@ -1,6 +1,13 @@
 package sudoku;
 
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 
 public class SudokuMain extends JFrame {
@@ -8,6 +15,10 @@ public class SudokuMain extends JFrame {
 
     private CardLayout cardLayout;
     private JPanel mainPanel;
+    private Clip audioClip;
+    private String[] songs = {"sudoku/soundboard/chill-guy.wav", "sudoku/soundboard/aur-auran.wav"};
+    private int currentSongIndex = 0;
+
 
     public SudokuMain() {
         cardLayout = new CardLayout();
@@ -27,6 +38,9 @@ public class SudokuMain extends JFrame {
 
         // Create menu bar here
         createMenuBar();
+        initializeAudio(songs[currentSongIndex]);
+        playAudio();
+
 
         setVisible(true);
         cardLayout.show(mainPanel, "Home");
@@ -53,8 +67,65 @@ public class SudokuMain extends JFrame {
         fileMenu.add(exitItem);
         menuBar.add(fileMenu);
 
+JMenu soundMenu = new JMenu("Sound");
+        JMenuItem muteItem = new JMenuItem("Mute");
+        JMenuItem unmuteItem = new JMenuItem("Unmute");
+        JMenu changeSongMenu = new JMenu("Change Song");
+
+        muteItem.addActionListener(e -> stopAudio());
+        unmuteItem.addActionListener(e -> playAudio());
+
+        // Add song selection options
+        for (int i = 0; i < songs.length; i++) {
+            String songPath = songs[i];
+            String songName = new File(songPath).getName();
+            JMenuItem songItem = new JMenuItem(songName);
+            final int songIndex = i;
+            songItem.addActionListener(e -> {
+                currentSongIndex = songIndex;
+                initializeAudio(songs[currentSongIndex]);
+                playAudio();
+            });
+            changeSongMenu.add(songItem);
+        }
+
+        soundMenu.add(muteItem);
+        soundMenu.add(unmuteItem);
+        soundMenu.add(changeSongMenu);
+        menuBar.add(fileMenu);
+        menuBar.add(soundMenu);
+
         setJMenuBar(menuBar);
     }
+
+    private void initializeAudio(String audioFilePath) {
+        if (audioClip != null && audioClip.isOpen()) {
+            audioClip.close();
+        }
+
+        try {
+            File audioFile = new File(audioFilePath);
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
+            audioClip = AudioSystem.getClip();
+            audioClip.open(audioStream);
+        } catch (UnsupportedAudioFileException | IOException | LineUnavailableException e) {
+            JOptionPane.showMessageDialog(this, "Error loading audio file: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private void playAudio() {
+        if (audioClip != null) {
+            audioClip.setFramePosition(0);
+            audioClip.loop(Clip.LOOP_CONTINUOUSLY);
+        }
+    }
+
+    private void stopAudio() {
+        if (audioClip != null && audioClip.isRunning()) {
+            audioClip.stop();
+        }
+    }
+
 
     private void switchToGame() {
         cardLayout.show(mainPanel, "Game");

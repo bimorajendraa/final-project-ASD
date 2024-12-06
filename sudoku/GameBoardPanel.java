@@ -2,6 +2,10 @@ package sudoku;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.*;
 
 public class GameBoardPanel extends JPanel {
@@ -53,7 +57,7 @@ public class GameBoardPanel extends JPanel {
     public void newGame() {
         // Generate a new puzzle
         puzzle.newPuzzle(2);
-
+        
         // Initialize all the 9x9 cells, based on the puzzle.
         for (int row = 0; row < SudokuConstants.GRID_SIZE; ++row) {
             for (int col = 0; col < SudokuConstants.GRID_SIZE; ++col) {
@@ -75,6 +79,18 @@ public class GameBoardPanel extends JPanel {
             }
         }
         return true;
+    }
+    private void playVictorySound() {
+        try {
+            // Path to your audio file
+            File soundFile = new File("sudoku/soundboard/victory.wav");
+            AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundFile);
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioStream);
+            clip.start();
+        } catch (Exception e) {
+            System.err.println("Error playing victory sound: " + e.getMessage());
+        }
     }
 
     // TODO 2 Define a Listener Inner Class for all the editable Cells
@@ -108,6 +124,7 @@ public class GameBoardPanel extends JPanel {
                  *   by calling isSolved(). Put up a congratulation JOptionPane, if so.
                  */
                 if (isSolved()) {
+                    playVictorySound(); // Play sound when puzzle is solved
                     JOptionPane.showMessageDialog(null, "Congratulations! You Solved the Puzzle!", "Puzzle Solved", JOptionPane.INFORMATION_MESSAGE);
                 }
             } catch (NumberFormatException ex) {

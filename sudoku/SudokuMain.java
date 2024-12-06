@@ -44,6 +44,7 @@ public class SudokuMain extends JFrame {
             // Reset game logic
             GamePage gamePage = (GamePage) mainPanel.getComponent(1);
             gamePage.board.newGame();
+            gamePage.resetTimer(); // Reset timer ke 5 menit
         });
 
         exitItem.addActionListener(e -> System.exit(0));

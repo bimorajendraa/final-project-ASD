@@ -1,3 +1,13 @@
+/**
+ * ES234317-Algorithm and Data Structures
+ * Semester Ganjil, 2024/2025
+ * Group Capstone Project
+ * Group 4
+ * 1 - 5026231092 - Muhammad Fawwaz Al-Amien 
+ * 2 - 5026231161 - Muhammad Daniel Alfarisi
+ * 3 - 5026231210 - Bimo Rajendra Widyadhana
+ */
+
 package sudoku;
 import java.awt.Color;
 import java.awt.Font;
@@ -15,7 +25,7 @@ public class Cell extends JTextField {
     public static final Color FG_GIVEN = Color.BLACK;
     public static final Color FG_NOT_GIVEN = Color.BLACK;
     public static final Color BG_TO_GUESS  = new Color(254, 238, 145);
-    public static final Color BG_CORRECT_GUESS = new Color(0, 216, 0);
+    public static final Color BG_CORRECT_GUESS = new Color(52, 121, 40);
     public static final Color BG_WRONG_GUESS   = new Color(175, 23, 64);
     public static final Font FONT_NUMBERS = new Font("ARIAL", Font.PLAIN, 28);
 

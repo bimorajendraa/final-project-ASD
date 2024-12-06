@@ -50,10 +50,6 @@ public class GamePage extends JPanel {
         timer.start();   // Mulai timer
     }
 
-    private void startTimer() {
-        resetTimer(); // Reset waktu kembali
-        timer.start(); // Mulai timer
-    }
 
     private void pauseTimer() {
         timer.stop();

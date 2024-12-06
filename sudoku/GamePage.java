@@ -6,7 +6,7 @@ import javax.swing.*;
 
 public class GamePage extends JPanel {
     private static final long serialVersionUID = 1L;  // to prevent serial warning
-    private static final int GAME_TIME = 300; // menambah waktu bermain selama 300 detik (5 menit)
+    private static final int GAME_TIME = 180; // menambah waktu bermain selama 300 detik (5 menit)
 
     // Private variables
     GameBoardPanel board = new GameBoardPanel();
@@ -51,7 +51,7 @@ public class GamePage extends JPanel {
     }
 
     private void startTimer() {
-        resetTimer(); // Reset waktu ke 5 menit
+        resetTimer(); // Reset waktu kembali
         timer.start(); // Mulai timer
     }
 

@@ -43,10 +43,27 @@ public class GameMain extends JPanel {
                             && board.cells[row][col].content == Seed.NO_SEED) {
                         // Update cells[][] and return the new game state after the move
                         currentState = board.stepGame(currentPlayer, row, col);
+                        // Play the sound based on the current player
+                        if (currentPlayer == Seed.CROSS) {
+                            SoundEffect.MEOW.play();  // Play MEOW sound
+                        } else if (currentPlayer == Seed.NOUGHT) {
+                            SoundEffect.GUG.play();  // Play GUG sound
+                        }
+
+                        // Check if the game is won or drawn
+                        if (currentState == State.CROSS_WON || currentState == State.NOUGHT_WON) {
+                            SoundEffect.WIN.play();  // Play WIN sound
+                        }
                         // Switch player
                         currentPlayer = (currentPlayer == Seed.CROSS) ? Seed.NOUGHT : Seed.CROSS;
                     }
-                } else {        // game over
+                }
+                if (currentState == State.PLAYING && currentPlayer == Seed.NOUGHT) {
+                    aiMove();  // AI makes its move
+                    currentPlayer = Seed.CROSS;  // Switch back to player
+                }
+                else {
+                  // game over
                     newGame();  // restart the game
                 }
                 // Refresh the drawing canvas
@@ -111,6 +128,17 @@ public class GameMain extends JPanel {
         } else if (currentState == State.NOUGHT_WON) {
             statusBar.setForeground(Color.RED);
             statusBar.setText("'O' Won! Click to play again.");
+        }
+    }
+    private void aiMove() {
+        for (int row = 0; row < Board.ROWS; row++) {
+            for (int col = 0; col < Board.COLS; col++) {
+                if (board.cells[row][col].content == Seed.NO_SEED) {
+                    currentState = board.stepGame(Seed.NOUGHT, row, col); // AI (O) makes a move
+                    repaint();
+                    return;
+                }
+            }
         }
     }
 

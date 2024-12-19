@@ -17,9 +17,9 @@ import java.net.URL;
  * For Eclipse, place the audio file under "src", which will be copied into "bin".
  */
 public enum SoundEffect {
-    MEOW("audio/cat.wav"),
-    GUG("audio/dog.wav"),
-    DIE("audio/die.wav");
+    MEOW("GraphicalTicTacToe/sfx/cat.wav"),
+    GUG("GraphicalTicTacToe/sfx/dog.wav"),
+    WIN("GraphicalTicTacToe/sfx/menang.wav");
 
     /** Nested enumeration for specifying volume */
     public static enum Volume {

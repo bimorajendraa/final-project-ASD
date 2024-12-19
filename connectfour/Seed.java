@@ -28,8 +28,8 @@ import javax.swing.*;
      * however, not supported.
      */
     public enum Seed {   // to save as "Seed.java"
-        CROSS("X", "images/Circle-PNG-File.png"),   // displayName, imageFilename
-        NOUGHT("O", "images/Red-Circle-Transparent.png"),
+        CROSS("X", "image/circleblue.png"),   // displayName, imageFilename
+        NOUGHT("O", "image/circlered.png"),
         NO_SEED(" ", null);
 
         // Private variables

@@ -25,10 +25,10 @@ import javax.sound.sampled.*;
  * For Eclipse, place the audio file under "src", which will be copied into "bin".
  */
 public enum soundEffect {
-    EAT_FOOD("audio/mouse click.wav"),
-    EXPLODE("audio/mouse click.wav"),
-    WIN ("audio/violin-win-5-185128.wav"),
-    DIE("audio/game-die.wav");
+    EAT_FOOD("sfx/play.wav"),
+    EXPLODE("sfx/play.wav"),
+    WIN ("sfx/winwow.wav"),
+    DIE("sfx/lose.wav");
 
     /** Nested enumeration for specifying volume */
     public static enum Volume {

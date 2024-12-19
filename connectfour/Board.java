@@ -64,25 +64,12 @@ public class Board {
         // Update game board
         cells[selectedRow][selectedCol].content = player;
 
-        // Compute and return the new game state
-        if (cells[selectedRow][0].content == player  // 3-in-the-row
-                && cells[selectedRow][1].content == player
-                && cells[selectedRow][2].content == player
-                || cells[0][selectedCol].content == player // 3-in-the-column
-                && cells[1][selectedCol].content == player
-                && cells[2][selectedCol].content == player
-                || selectedRow == selectedCol     // 3-in-the-diagonal
-                && cells[0][0].content == player
-                && cells[1][1].content == player
-                && cells[2][2].content == player
-                || selectedRow + selectedCol == 2 // 3-in-the-opposite-diagonal
-                && cells[0][2].content == player
-                && cells[1][1].content == player
-                && cells[2][0].content == player) {
+        // Check win conditions
+        if (checkWin(player, selectedRow, selectedCol)) {
             soundEffect.WIN.play();
             return (player == Seed.CROSS) ? State.CROSS_WON : State.NOUGHT_WON;
         } else {
-            // Nobody win. Check for DRAW (all cells occupied) or PLAYING.
+            // Check for DRAW (all cells occupied) or PLAYING.
             for (int row = 0; row < ROWS; ++row) {
                 for (int col = 0; col < COLS; ++col) {
                     if (cells[row][col].content == Seed.NO_SEED) {
@@ -92,6 +79,48 @@ public class Board {
             }
             return State.DRAW; // no empty cell, it's a draw
         }
+    }
+
+    private boolean checkWin(Seed player, int selectedRow, int selectedCol) {
+        // Check 4-in-a-row horizontally
+        if (countConsecutive(player, selectedRow, selectedCol, 0, 1)
+                + countConsecutive(player, selectedRow, selectedCol, 0, -1) - 1 >= 4) {
+            return true;
+        }
+
+        // Check 4-in-a-column vertically (only downwards)
+        if (countConsecutive(player, selectedRow, selectedCol, 1, 0) >= 4) {
+            return true;
+        }
+
+        // Check 4-in-a-diagonal (\)
+        if (countConsecutive(player, selectedRow, selectedCol, 1, 1)
+                + countConsecutive(player, selectedRow, selectedCol, -1, -1) - 1 >= 4) {
+            return true;
+        }
+
+        // Check 4-in-the-opposite-diagonal (/)
+        if (countConsecutive(player, selectedRow, selectedCol, 1, -1)
+                + countConsecutive(player, selectedRow, selectedCol, -1, 1) - 1 >= 4) {
+            return true;
+        }
+
+        return false;
+    }
+
+    private int countConsecutive(Seed player, int startRow, int startCol, int rowDir, int colDir) {
+        int count = 0;
+        int row = startRow;
+        int col = startCol;
+
+        // Traverse in the specified direction
+        while (row >= 0 && row < ROWS && col >= 0 && col < COLS && cells[row][col].content == player) {
+            count++;
+            row += rowDir;
+            col += colDir;
+        }
+
+        return count;
     }
 
     /** Paint itself on the graphics canvas, given the Graphics context */

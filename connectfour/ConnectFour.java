@@ -14,14 +14,13 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 /**
- * Tic-Tac-Toe: Two-player Graphic version with better OO design.
- * The Board and Cell classes are separated in their own classes.
+ * Connect Four
  */
 public class ConnectFour extends JPanel {
     private static final long serialVersionUID = 1L; // to prevent serializable warning
 
     // Define named constants for the drawing graphics
-    public static final String TITLE = "Tic Tac Toe";
+    public static final String TITLE = "Connect Four";
     public static final Color COLOR_BG = Color.WHITE;
     public static final Color COLOR_BG_STATUS = new Color(216, 216, 216);
     public static final Color COLOR_CROSS = new Color(239, 105, 80);  // Red #EF6950
@@ -130,7 +129,7 @@ public class ConnectFour extends JPanel {
         // Print status-bar message
         if (currentState == State.PLAYING) {
             statusBar.setForeground(Color.BLACK);
-            statusBar.setText((currentPlayer == Seed.CROSS) ? "X's Turn" : "O's Turn");
+            statusBar.setText((currentPlayer == Seed.CROSS) ? "RED's Turn" : "BLUE's Turn");
         } else if (currentState == State.DRAW) {
             statusBar.setForeground(Color.RED);
             soundEffect.DIE.play();
@@ -138,11 +137,11 @@ public class ConnectFour extends JPanel {
         } else if (currentState == State.CROSS_WON) {
             statusBar.setForeground(Color.RED);
             soundEffect.WIN.play();
-            statusBar.setText("'X' Won! Click to play again.");
+            statusBar.setText("'RED' Won! Click to play again.");
         } else if (currentState == State.NOUGHT_WON) {
             statusBar.setForeground(Color.RED);
             soundEffect.WIN.play();
-            statusBar.setText("'O' Won! Click to play again.");
+            statusBar.setText("'BLUE' Won! Click to play again.");
         }
     }
 

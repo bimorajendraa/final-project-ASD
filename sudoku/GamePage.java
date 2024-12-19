@@ -15,15 +15,15 @@ import javax.swing.*;
 
 public class GamePage extends JPanel {
     private static final long serialVersionUID = 1L;  // to prevent serial warning
-    private static final int GAME_TIME = 180; // menambah waktu bermain selama 300 detik (5 menit)
+    private static final int GAME_TIME = 180; // menambah waktu bermain selama 180 detik (3 menit)
 
-    // Private variables
+    // Initialize variables
     GameBoardPanel board = new GameBoardPanel();
     JButton btnNewGame = new JButton("New Game");
     JButton btnPause = new JButton("Pause");
     JButton btnResume = new JButton("Resume");
-    JLabel timerLabel = new JLabel("Time Left: 05:00", SwingConstants.CENTER);
-    Timer timer;
+    JLabel timerLabel = new JLabel("Time Left: 03:00", SwingConstants.CENTER);
+    static Timer timer;
     int remainingTime;
 
     // Constructor
@@ -50,12 +50,11 @@ public class GamePage extends JPanel {
 
         // Mulai game baru
         board.newGame();
-
     }
 
     private void startNewGame() {
         board.newGame(); // Mengatur ulang papan permainan
-        resetTimer();    // Reset waktu ke 5 menit
+        resetTimer();    // Reset waktu ke 3 menit
         timer.start();   // Mulai timer
     }
 

@@ -5,8 +5,8 @@ import java.awt.*;
 import java.net.URL;
 
 public enum Seed {   // to save as "Seed.java"
-    CROSS("X", "GraphicalTicTacToe/image/Cat1.jpg"),   // displayName, imageFilename
-    NOUGHT("O", "GraphicalTicTacToe/image/anjing.jpg"),
+    CROSS("Cat", "GraphicalTicTacToe/image/Cat.jpg"),   // displayName, imageFilename
+    NOUGHT("Dog", "GraphicalTicTacToe/image/Dog.jpg"),
     NO_SEED(" ", null);
 
     // Private variables

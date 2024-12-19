@@ -68,6 +68,7 @@ public class SudokuMain extends JFrame {
             GamePage gamePage = (GamePage) mainPanel.getComponent(1);
             gamePage.board.newGame();
             gamePage.resetTimer(); // Reset timer ke 5 menit
+            gamePage.timer.start();
         });
 
         exitItem.addActionListener(e -> System.exit(0));
@@ -138,6 +139,7 @@ JMenu soundMenu = new JMenu("Sound");
 
     private void switchToGame() {
         cardLayout.show(mainPanel, "Game");
+        GamePage.timer.start();
     }
 
     private void switchToHome() {

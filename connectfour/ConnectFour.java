@@ -14,13 +14,14 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 /**
- * Connect-4
+ * Tic-Tac-Toe: Two-player Graphic version with better OO design.
+ * The Board and Cell classes are separated in their own classes.
  */
 public class ConnectFour extends JPanel {
     private static final long serialVersionUID = 1L; // to prevent serializable warning
 
     // Define named constants for the drawing graphics
-    public static final String TITLE = "Connect-4";
+    public static final String TITLE = "Tic Tac Toe";
     public static final Color COLOR_BG = Color.WHITE;
     public static final Color COLOR_BG_STATUS = new Color(216, 216, 216);
     public static final Color COLOR_CROSS = new Color(239, 105, 80);  // Red #EF6950
@@ -32,6 +33,7 @@ public class ConnectFour extends JPanel {
     private State currentState;  // the current state of the game
     private Seed currentPlayer;  // the current player
     private JLabel statusBar;    // for displaying status message
+    private JButton newGameButton; // gamebutton
 
     /** Constructor to setup the UI and game components */
     public ConnectFour() {
@@ -60,7 +62,6 @@ public class ConnectFour extends JPanel {
                             }
                         }
                     }
-
                 } else {        // game over
                     newGame();  // restart the game
                 }
@@ -68,6 +69,8 @@ public class ConnectFour extends JPanel {
                 repaint();  // Callback paintComponent().
             }
         });
+
+        // Setup the status bar (JLabel) to display status message
 
         statusBar = new JLabel();
         statusBar.setFont(FONT_STATUS);
@@ -77,11 +80,22 @@ public class ConnectFour extends JPanel {
         statusBar.setHorizontalAlignment(JLabel.LEFT);
         statusBar.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 12));
 
+        // Setup New Game button
+        newGameButton = new JButton("New Game");
+        newGameButton.setFont(FONT_STATUS);
+        newGameButton.addActionListener(e -> newGame());
+
+        // Layout adjustments
+        JPanel bottomPanel = new JPanel(new BorderLayout());
+        bottomPanel.add(statusBar, BorderLayout.CENTER);
+        bottomPanel.add(newGameButton, BorderLayout.EAST); // menambahkan tombol new game di kanan bawah
+
         super.setLayout(new BorderLayout());
-        super.add(statusBar, BorderLayout.PAGE_END); // same as SOUTH
+        super.add(bottomPanel, BorderLayout.PAGE_END); // same as SOUTH
         super.setPreferredSize(new Dimension(Board.CANVAS_WIDTH, Board.CANVAS_HEIGHT + 30));
         // account for statusBar in height
         super.setBorder(BorderFactory.createLineBorder(COLOR_BG_STATUS, 2, false));
+
 
         // Set up Game
         initGame();
@@ -102,6 +116,7 @@ public class ConnectFour extends JPanel {
         }
         currentPlayer = Seed.CROSS;    // cross plays first
         currentState = State.PLAYING;  // ready to play
+        repaint(); // Refresh the game board
     }
 
     /** Custom painting codes on this JPanel */
@@ -115,7 +130,7 @@ public class ConnectFour extends JPanel {
         // Print status-bar message
         if (currentState == State.PLAYING) {
             statusBar.setForeground(Color.BLACK);
-            statusBar.setText((currentPlayer == Seed.CROSS) ? "RED's Turn" : "BLUE's Turn");
+            statusBar.setText((currentPlayer == Seed.CROSS) ? "X's Turn" : "O's Turn");
         } else if (currentState == State.DRAW) {
             statusBar.setForeground(Color.RED);
             soundEffect.DIE.play();
@@ -123,11 +138,11 @@ public class ConnectFour extends JPanel {
         } else if (currentState == State.CROSS_WON) {
             statusBar.setForeground(Color.RED);
             soundEffect.WIN.play();
-            statusBar.setText("'RED' Won! Click to play again.");
+            statusBar.setText("'X' Won! Click to play again.");
         } else if (currentState == State.NOUGHT_WON) {
             statusBar.setForeground(Color.RED);
             soundEffect.WIN.play();
-            statusBar.setText("'BLUE' Won! Click to play again.");
+            statusBar.setText("'O' Won! Click to play again.");
         }
     }
 

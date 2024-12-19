@@ -25,7 +25,7 @@ public class GameMain extends JPanel {
     private Seed currentPlayer;  // the current player
     private JLabel statusBar;    // for displaying status message
 
-    /** Constructor to setup the UI and game components */
+    /** Constructor to for the UI and game components */
     public GameMain() {
 
         // This JPanel fires MouseEvent
@@ -55,17 +55,23 @@ public class GameMain extends JPanel {
                             SoundEffect.WIN.play();  // Play WIN sound
                         }
                         // Switch player
-                        currentPlayer = (currentPlayer == Seed.CROSS) ? Seed.NOUGHT : Seed.CROSS;
+                        if(currentState != State.CROSS_WON) {
+                            currentPlayer = (currentPlayer == Seed.CROSS) ? Seed.NOUGHT : Seed.CROSS;
+                        }
                     }
                 }
+
                 if (currentState == State.PLAYING && currentPlayer == Seed.NOUGHT) {
-                    aiMove();  // AI makes its move
-                    currentPlayer = Seed.CROSS;  // Switch back to player
+                    aiMove();  // AI move
+                    // Switch player
+                    currentPlayer = (currentPlayer == Seed.CROSS) ? Seed.NOUGHT : Seed.CROSS;
                 }
+
                 else {
-                  // game over
+                    // game over
                     newGame();  // restart the game
                 }
+
                 // Refresh the drawing canvas
                 repaint();  // Callback paintComponent().
             }
@@ -118,23 +124,24 @@ public class GameMain extends JPanel {
         // Print status-bar message
         if (currentState == State.PLAYING) {
             statusBar.setForeground(Color.BLACK);
-            statusBar.setText((currentPlayer == Seed.CROSS) ? "X's Turn" : "O's Turn");
+            statusBar.setText((currentPlayer == Seed.CROSS) ? "Cat's Turn" : "Dog's Turn");
         } else if (currentState == State.DRAW) {
             statusBar.setForeground(Color.RED);
             statusBar.setText("It's a Draw! Click to play again.");
         } else if (currentState == State.CROSS_WON) {
             statusBar.setForeground(Color.RED);
-            statusBar.setText("'X' Won! Click to play again.");
+            statusBar.setText("'Cat' Won! Click to play again.");
         } else if (currentState == State.NOUGHT_WON) {
             statusBar.setForeground(Color.RED);
-            statusBar.setText("'O' Won! Click to play again.");
+            statusBar.setText("'Dog' Won! Click to play again.");
         }
     }
+
     private void aiMove() {
         for (int row = 0; row < Board.ROWS; row++) {
             for (int col = 0; col < Board.COLS; col++) {
                 if (board.cells[row][col].content == Seed.NO_SEED) {
-                    currentState = board.stepGame(Seed.NOUGHT, row, col); // AI (O) makes a move
+                    currentState = board.stepGame(Seed.NOUGHT, row, col); // AI makes a move
                     repaint();
                     return;
                 }

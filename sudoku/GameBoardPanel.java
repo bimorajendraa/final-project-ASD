@@ -64,6 +64,7 @@ public class GameBoardPanel extends JPanel {
      * Generate a new puzzle; and reset the game board of cells based on the puzzle.
      * You can call this method to start a new game.
      */
+
     public void newGame() {
         // Generate a new puzzle
         puzzle.newPuzzle(2);

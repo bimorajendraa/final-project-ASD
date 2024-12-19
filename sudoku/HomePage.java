@@ -23,7 +23,7 @@ public class HomePage extends JPanel {
         // Mengatur layout vertikal menggunakan BoxLayout
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        // Menambahkan margin di sekeliling panel
+        // Menambahkan batas panel
         setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
 
         add(Box.createVerticalGlue());        

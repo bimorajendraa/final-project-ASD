@@ -3,6 +3,7 @@ package GraphicalTicTacToe;
 import javax.sound.sampled.*;
 import java.io.IOException;
 import java.net.URL;
+
 /**
  * This enum encapsulates all the sound effects of a game, so as to separate the sound playing
  * codes from the game codes.
@@ -16,8 +17,8 @@ import java.net.URL;
  * For Eclipse, place the audio file under "src", which will be copied into "bin".
  */
 public enum SoundEffect {
-    EAT_FOOD("audio/eatfood.wav"),
-    EXPLODE("audio/explode.wav"),
+    MEOW("audio/cat.wav"),
+    GUG("audio/dog.wav"),
     DIE("audio/die.wav");
 
     /** Nested enumeration for specifying volume */

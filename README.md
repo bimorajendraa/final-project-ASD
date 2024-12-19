@@ -14,10 +14,11 @@ Sudoku Features | Checkpoint 1 | Feature	Status	Description
 Timer |	✅ Finished | Displays timer when the game started.
 Music |	✅ Finished	| Add background music during gameplay.
 Setting timer | ✅ Finished | Add pause timer and resume timer.
-Menubar | ✅ Finished | Add menu bar.
-Welcome Page |	✅ Finished |	Display a page before entering the game.
+Menubar | ✅ Finished | Add menu bar from JPanel.
+Welcome Page |	✅ Finished |	Display a page before entering the game displaying an image and a button.
 Reset Game | ✅ Finished | User could reset the game even though it wasn't finished.
 Choose music | ✅ Finished | User can choose background music through menubar.
 Mute music | ✅ Finished | User can mute background music through menubar.
+Image |  ✅ Finished | There is an image on homepage.
 
 

@@ -77,7 +77,7 @@ public class SudokuMain extends JFrame {
         fileMenu.add(exitItem);
         menuBar.add(fileMenu);
 
-JMenu soundMenu = new JMenu("Sound");
+        JMenu soundMenu = new JMenu("Sound");
         JMenuItem muteItem = new JMenuItem("Mute");
         JMenuItem unmuteItem = new JMenuItem("Unmute");
         JMenu changeSongMenu = new JMenu("Change Song");

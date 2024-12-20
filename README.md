@@ -21,4 +21,12 @@ Choose music | ✅ Finished | User can choose background music through menubar.
 Mute music | ✅ Finished | User can mute background music through menubar.
 Image |  ✅ Finished | There is an image on homepage.
 
+## TicTacToe and Connect Four
+
+Features | Checkpoint 2 | Feature	Status Description
+--------------- |--------------|-----------------------------
+VS AI |	✅ Finished	| Add vs AI on TicTacToe.
+Soundeffect |	✅ Finished	| Add soundeffect music during gameplay.
+Reset Game | ✅ Finished | User could reset the game even though it wasn't finished.
+Image |  ✅ Finished | There is an image on homepage.
 

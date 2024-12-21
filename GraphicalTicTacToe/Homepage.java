@@ -39,7 +39,7 @@ public class Homepage extends JPanel {
         centerLabel.setVerticalAlignment(JLabel.CENTER);
         centerLabel.setBorder(BorderFactory.createEmptyBorder(10, 10, 10, 10));
 
-        // Replace "path/to/your/image.jpg" with your actual image path
+        // Homepage Image
         centerLabel.setIcon(new ImageIcon("GraphicalTicTacToe/image/tttxo.jpg"));
 
         // Button panel
@@ -68,18 +68,5 @@ public class Homepage extends JPanel {
         add(titleLabel, BorderLayout.NORTH);
         add(centerLabel, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> {
-            JFrame homepageFrame = new JFrame(TITLE);
-            homepageFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            homepageFrame.setSize(370, 430);
-            homepageFrame.setLocationRelativeTo(null);
-
-            // Tampilkan homepage di JFrame utama
-            homepageFrame.setContentPane(new Homepage(homepageFrame));
-            homepageFrame.setVisible(true);
-        });
     }
 }

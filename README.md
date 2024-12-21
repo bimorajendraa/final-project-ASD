@@ -20,6 +20,7 @@ Reset Game | ✅ Finished | User could reset the game even though it wasn't fini
 Choose music | ✅ Finished | User can choose background music through menubar.
 Mute music | ✅ Finished | User can mute background music through menubar.
 Image |  ✅ Finished | There is an image on homepage.
+Announchment |  ✅ Finished | Pop Up announchment when winning and invalid.
 
 ## TicTacToe and Connect Four
 
@@ -29,4 +30,10 @@ VS AI |	✅ Finished	| Add vs AI on TicTacToe.
 Soundeffect |	✅ Finished	| Add soundeffect music during gameplay.
 Reset Game | ✅ Finished | User could reset the game even though it wasn't finished.
 Image |  ✅ Finished | There is an image on homepage.
+Connect Four |  ✅ Finished | Adding new game connect four
+Game Mode |  ✅ Finished | There is a game mode on connect four, casual game and fun game.
+Homepage |  ✅ Finished | Adding homepage on Connect Four and TicTacToe.
+Announchment |  ✅ Finished | Pop Up announchment when winning.
+Status Bar |  ✅ Finished | Shows whos turn and skor per player.
+
 

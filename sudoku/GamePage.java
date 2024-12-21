@@ -94,11 +94,5 @@ public class GamePage extends JPanel {
         int seconds = remainingTime % 60;
         timerLabel.setText(String.format("Time Left: %02d:%02d", minutes, seconds));
     }
-    private void checkGameOver() {
-        if (board.isSolved()) { // Cek apakah permainan telah selesai
-            timer.stop();         // Hentikan timer
-            JOptionPane.showMessageDialog(this, "Congratulations! You finished the game.", "Game Over", JOptionPane.INFORMATION_MESSAGE);
-        }
-    }
 
 }

@@ -1,9 +1,19 @@
+/**
+ * ES234317-Algorithm and Data Structures
+ * Semester Ganjil, 2024/2025
+ * Group Capstone Project
+ * Group 4
+ * 1 - 5026231092 - Muhammad Fawwaz Al-Amien 
+ * 2 - 5026231161 - Muhammad Daniel Alfarisi
+ * 3 - 5026231210 - Bimo Rajendra Widyadhana
+ */
+
 package GraphicalTicTacToe;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import javax.swing.*;
 /**
  * Tic-Tac-Toe: Two-player Graphic version with better OO design.
  * The Board and Cell classes are separated in their own classes.

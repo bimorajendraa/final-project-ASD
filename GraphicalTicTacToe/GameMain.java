@@ -3,7 +3,7 @@
  * Semester Ganjil, 2024/2025
  * Group Capstone Project
  * Group 4
- * 1 - 5026231092 - Muhammad Fawwaz Al-Amien 
+ * 1 - 5026231092 - Muhammad Fawwaz Al-Amien
  * 2 - 5026231161 - Muhammad Daniel Alfarisi
  * 3 - 5026231210 - Bimo Rajendra Widyadhana
  */
@@ -37,6 +37,7 @@ public class GameMain extends JPanel {
     private State currentState;  // the current state of the game
     private Seed currentPlayer;  // the current player
     private JLabel statusBar;    // for displaying status message
+    private AIPlayer aiPlayer; // Objek AIPlayer
 
     /**
      * Constructor to for the UI and game components
@@ -123,6 +124,9 @@ public class GameMain extends JPanel {
      */
     public void initGame() {
         board = new Board();  // allocate the game-board
+        boolean useMinimax = true; // Ubah menjadi false untuk menggunakan TableLookup
+        aiPlayer = useMinimax ? new AIPlayerMinimax(board) : new AIPlayerTableLookup(board);
+        aiPlayer.setSeed(Seed.NOUGHT); // AI selalu bermain sebagai 'O'
     }
 
     /**
@@ -166,15 +170,9 @@ public class GameMain extends JPanel {
 
     private void aiMove() {
         if (currentState != State.PLAYING) return; //
-        for (int row = 0; row < Board.ROWS; row++) {
-            for (int col = 0; col < Board.COLS; col++) {
-                if (board.cells[row][col].content == Seed.NO_SEED) {
-                    currentState = board.stepGame(Seed.NOUGHT, row, col); //
-                    repaint();
-                    return;
-                }
-            }
-        }
+        int[] move = aiPlayer.move();
+        currentState = board.stepGame(aiPlayer.getSeed(), move[0], move[1]);
+        repaint();
     }
     public static void main(String[] args) {
         SwingUtilities.invokeLater(() -> {

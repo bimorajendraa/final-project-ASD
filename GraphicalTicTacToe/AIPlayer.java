@@ -28,6 +28,9 @@ public abstract class AIPlayer {
         this.mySeed = seed;
         oppSeed = (mySeed == Seed.CROSS) ? Seed.NOUGHT : Seed.CROSS;
     }
+    public Seed getSeed() {
+        return this.mySeed;
+    }
 
     /** Abstract method to get next move. Return int[2] of {row, col} */
     abstract int[] move();  // to be implemented by subclasses

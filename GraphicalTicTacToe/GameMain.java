@@ -10,6 +10,7 @@ import java.awt.event.MouseEvent;
  */
 
 public class GameMain extends JPanel {
+
     private static final long serialVersionUID = 1L; // to prevent serializable warning
 
     // Define named constants for the drawing graphics
@@ -26,7 +27,9 @@ public class GameMain extends JPanel {
     private Seed currentPlayer;  // the current player
     private JLabel statusBar;    // for displaying status message
 
-    /** Constructor to for the UI and game components */
+    /**
+     * Constructor to for the UI and game components
+     */
     public GameMain() {
 
         // This JPanel fires MouseEvent
@@ -56,7 +59,7 @@ public class GameMain extends JPanel {
                             SoundEffect.WIN.play();  // Play WIN sound
                         }
                         // Switch player
-                        if(currentState != State.CROSS_WON) {
+                        if (currentState != State.CROSS_WON) {
                             currentPlayer = (currentPlayer == Seed.CROSS) ? Seed.NOUGHT : Seed.CROSS;
                         }
                     }
@@ -66,9 +69,7 @@ public class GameMain extends JPanel {
                     aiMove();  // AI move
                     // Switch player
                     currentPlayer = (currentPlayer == Seed.CROSS) ? Seed.NOUGHT : Seed.CROSS;
-                }
-
-                else {
+                } else {
                     // game over
                     newGame();  // restart the game
                 }
@@ -98,12 +99,16 @@ public class GameMain extends JPanel {
         newGame();
     }
 
-    /** Initialize the game (run once) */
+    /**
+     * Initialize the game (run once)
+     */
     public void initGame() {
         board = new Board();  // allocate the game-board
     }
 
-    /** Reset the game-board contents and the current-state, ready for new game */
+    /**
+     * Reset the game-board contents and the current-state, ready for new game
+     */
     public void newGame() {
         for (int row = 0; row < Board.ROWS; ++row) {
             for (int col = 0; col < Board.COLS; ++col) {
@@ -114,7 +119,9 @@ public class GameMain extends JPanel {
         currentState = State.PLAYING;  // ready to play
     }
 
-    /** Custom painting codes on this JPanel */
+    /**
+     * Custom painting codes on this JPanel
+     */
     @Override
     public void paintComponent(Graphics g) {  // Callback via repaint()
         super.paintComponent(g);
@@ -148,21 +155,5 @@ public class GameMain extends JPanel {
                 }
             }
         }
-    }
-
-    /** The entry "main" method */
-    public static void main(String[] args) {
-        // Run GUI construction codes in Event-Dispatching thread for thread safety
-        SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                JFrame frame = new JFrame(TITLE);
-                // Set the content-pane of the JFrame to an instance of main JPanel
-                frame.setContentPane(new GameMain());
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                frame.pack();
-                frame.setLocationRelativeTo(null); // center the application window
-                frame.setVisible(true);            // show it
-            }
-        });
     }
 }

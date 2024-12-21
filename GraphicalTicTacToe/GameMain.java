@@ -10,6 +10,8 @@
 
 package GraphicalTicTacToe;
 
+import connectfour.HomePage;
+
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -20,7 +22,6 @@ import javax.swing.*;
  */
 
 public class GameMain extends JPanel {
-
     private static final long serialVersionUID = 1L; // to prevent serializable warning
 
     // Define named constants for the drawing graphics
@@ -45,7 +46,7 @@ public class GameMain extends JPanel {
         // This JPanel fires MouseEvent
         super.addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {  // mouse-clicked handler
+            public void mouseClicked(MouseEvent e) {
                 int mouseX = e.getX();
                 int mouseY = e.getY();
                 // Get the row and column clicked
@@ -57,35 +58,43 @@ public class GameMain extends JPanel {
                             && board.cells[row][col].content == Seed.NO_SEED) {
                         // Update cells[][] and return the new game state after the move
                         currentState = board.stepGame(currentPlayer, row, col);
-                        // Play the sound based on the current player
                         if (currentPlayer == Seed.CROSS) {
                             SoundEffect.MEOW.play();  // Play MEOW sound
                         } else if (currentPlayer == Seed.NOUGHT) {
                             SoundEffect.GUG.play();  // Play GUG sound
                         }
-
-                        // Check if the game is won or drawn
                         if (currentState == State.CROSS_WON || currentState == State.NOUGHT_WON) {
-                            SoundEffect.WIN.play();  // Play WIN sound
+                            SoundEffect.WIN.play(); // Play WIN sound
+                        } else if (currentState == State.DRAW) {
+                            SoundEffect.GUG.play(); // Play DRAW sound
                         }
-                        // Switch player
-                        if (currentState != State.CROSS_WON) {
+
+                        // Only switch player if game is still ongoing
+                        if (currentState == State.PLAYING) {
                             currentPlayer = (currentPlayer == Seed.CROSS) ? Seed.NOUGHT : Seed.CROSS;
                         }
                     }
-                }
-
-                if (currentState == State.PLAYING && currentPlayer == Seed.NOUGHT) {
-                    aiMove();  // AI move
-                    // Switch player
-                    currentPlayer = (currentPlayer == Seed.CROSS) ? Seed.NOUGHT : Seed.CROSS;
                 } else {
-                    // game over
-                    newGame();  // restart the game
+                    newGame();
+                }
+                // AI move only if the game is still playing
+                if (currentState == State.PLAYING && currentPlayer == Seed.NOUGHT) {
+                    aiMove();
+                    // Update game state after AI's move
+                    if (currentState == State.CROSS_WON || currentState == State.NOUGHT_WON) {
+                        SoundEffect.WIN.play();
+                    } else if (currentState == State.DRAW) {
+                        SoundEffect.GUG.play();
+                    }
+
+                    // Switch player if game is still ongoing
+                    if (currentState == State.PLAYING) {
+                        currentPlayer = Seed.CROSS;
+                    }
                 }
 
                 // Refresh the drawing canvas
-                repaint();  // Callback paintComponent().
+                repaint();
             }
         });
 
@@ -135,9 +144,9 @@ public class GameMain extends JPanel {
     @Override
     public void paintComponent(Graphics g) {  // Callback via repaint()
         super.paintComponent(g);
-        setBackground(COLOR_BG); // set its background color
+        setBackground(COLOR_BG); // set background color
 
-        board.paint(g);  // ask the game board to paint itself
+        board.paint(g);  //
 
         // Print status-bar message
         if (currentState == State.PLAYING) {
@@ -156,14 +165,28 @@ public class GameMain extends JPanel {
     }
 
     private void aiMove() {
+        if (currentState != State.PLAYING) return; //
         for (int row = 0; row < Board.ROWS; row++) {
             for (int col = 0; col < Board.COLS; col++) {
                 if (board.cells[row][col].content == Seed.NO_SEED) {
-                    currentState = board.stepGame(Seed.NOUGHT, row, col); // AI makes a move
+                    currentState = board.stepGame(Seed.NOUGHT, row, col); //
                     repaint();
                     return;
                 }
             }
         }
+    }
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(() -> {
+            // JFrame utama
+            JFrame mainFrame = new JFrame(Homepage.TITLE);
+            mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            mainFrame.setSize(370, 430); //
+            mainFrame.setLocationRelativeTo(null); //
+
+            // Tampilkan Homepage
+            mainFrame.setContentPane(new Homepage(mainFrame));
+            mainFrame.setVisible(true);
+        });
     }
 }
